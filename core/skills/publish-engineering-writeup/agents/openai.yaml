@@ -1,0 +1,4 @@
+interface:
+  display_name: "Publish Engineering Writeup"
+  short_description: "기술 기록을 Chirpy 게시물 Draft PR로 안전하게 발행"
+  default_prompt: "Use $publish-engineering-writeup to turn the verified engineering work into a Korean Chirpy post and open a safe draft PR."
