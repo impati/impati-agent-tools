@@ -1,11 +1,11 @@
 ---
 name: start-work
-description: Interview the user before starting any code, configuration, documentation, or repository-changing work. Use automatically for implementation and modification requests, and explicitly when the user says 작업 시작, 인터뷰해줘, 의도를 파악해줘, start work, or invokes $start-work. Align intent, surface material decisions with options and recommendations, obtain final approval, record the result in docs/adr, and finish verified work as reviewable logical commits with a commit-by-commit report.
+description: Interview the user before functionality-affecting code work that may change business logic, user behavior, APIs, data, architecture, security, performance, or runtime behavior. Do not auto-trigger for docs-only changes, backlog capture, changelogs, formatting, comments, typos, skills, or work-rule maintenance. Always use when the user explicitly says 작업 시작, 인터뷰해줘, 의도를 파악해줘, start work, or invokes $start-work. Align intent and material decisions before implementation, follow the target project's ADR policy, and finish verified work as reviewable logical commits.
 ---
 
 # Start Work Interview
 
-개발이나 파일 변경을 시작하기 전에 사용자의 의도를 충분히 이해하고 주요 결정을 합의하라. 인터뷰와 최종 승인이 끝나기 전에는 구현하지 말라.
+기능 동작에 영향을 주는 코드 작업을 시작하기 전에 사용자의 의도를 충분히 이해하고 주요 결정을 합의하라. 인터뷰와 최종 승인이 끝나기 전에는 구현하지 말라.
 
 ## 기본 원칙
 
@@ -98,19 +98,20 @@ description: Interview the user before starting any code, configuration, documen
 
 ## 7. ADR 기록
 
-사용자가 최종 브리프를 승인하면 구현 전에 `references/adr-convention.md`를 읽고 `docs/adr`에 ADR을 작성하라.
+사용자가 최종 브리프를 승인하면 대상 프로젝트의 로컬 규칙에서 ADR을 요구하거나 허용하는지 확인하라. ADR을 사용하는 프로젝트에서는 구현 전에 `references/adr-convention.md`를 읽고 `docs/adr`에 ADR을 작성하라.
 
 - 인터뷰에서 실제로 논의하고 승인한 내용만 기록하라.
 - ADR을 진행 일지나 상세 구현 문서로 만들지 말라.
 - 새 ADR 파일 자체는 승인된 작업의 첫 변경으로 간주하라.
 - 저장소에 다른 ADR 규약이 있으면 더 가까운 저장소 규약을 우선하라.
+- 대상 프로젝트가 ADR을 사용하지 않으면 최종 작업 브리프를 대화에 유지하고 ADR 작성 없이 구현으로 넘어가라.
 
 ## 8. 승인된 범위로 실행
 
-ADR을 작성한 뒤 승인된 범위 안에서만 구현하라.
+필요한 ADR을 작성했거나 로컬 규칙에 따라 생략한 뒤 승인된 범위 안에서만 구현하라.
 
 - 구현 중 새로운 중요한 결정이 나타나면 작업을 멈추고 선택지와 추천안을 사용자에게 물어라.
-- 새 결정이 승인되면 같은 ADR의 `추가 결정` 섹션에 간결하게 반영한 뒤 계속하라.
+- 새 결정이 승인되면 ADR을 사용하는 프로젝트에서는 같은 ADR의 `추가 결정`에 반영하라. ADR을 사용하지 않으면 대화의 최종 작업 브리프를 갱신한 뒤 계속하라.
 - 단순한 가역적 세부 구현은 승인된 위임 방침에 따라 처리하라.
 - 완료 시 합의한 완료 기준으로 검증하고 `CHANGELOG.md`를 갱신하라.
 
