@@ -16,6 +16,8 @@
 - `rca-code-review`: 명시적 요청 시 백로그 브랜치를 RCA 다관점으로 리뷰
 - `engineering-writeup`: 엔지니어링 작업을 한국어 기술 문서로 정리
 
+`.agents/skills/`는 에이전트가 이 저장소의 스킬을 발견하기 위한 심볼릭 링크 모음입니다. 공통 스킬의 실제 원본은 `core/skills/`, Codex 전용 스킬의 원본은 `adapters/codex/skills/`에 있으므로 `.agents/skills/`의 링크를 직접 수정하지 않습니다.
+
 ### Codex 어댑터
 
 `adapters/codex/`는 공통 코어를 Codex에서 사용할 수 있게 만드는 전용 구현입니다.
@@ -125,5 +127,5 @@ codex plugin add impati-codex-tools@personal
 │               └── skills/  # 생성된 배포물
 └── .agents/
     ├── plugins/marketplace.json
-    └── skills/  # 저장소 작업용 호환 링크
+    └── skills/  # 원본 스킬을 가리키는 탐색용 심볼릭 링크
 ```
