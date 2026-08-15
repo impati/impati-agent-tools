@@ -34,7 +34,6 @@
 ├── README.md
 ├── docs/
 │   └── backlog/
-│       ├── README.md
 │       └── bl-NNNN-*.md
 └── .agents/
     └── skills/
