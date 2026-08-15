@@ -1,6 +1,6 @@
-# 작업 원칙
+# 공통 작업 원칙
 
-이 저장소에서 작업하는 모든 에이전트는 다음 원칙을 우선한다.
+이 하네스를 사용하는 모든 에이전트는 다음 원칙을 우선한다.
 
 ## 제1원칙: 사용자의 의도를 완전히 파악한다
 
@@ -54,21 +54,17 @@
 ## 저장소 스킬
 
 - 기능 동작에 영향을 주는 코드 작업 전에 사용자 의도와 주요 결정을 인터뷰할 때 `start-work` 스킬을 사용한다.
-- `start-work`의 세부 절차는 `.agents/skills/start-work/SKILL.md`를 따른다.
+- `start-work`의 세부 절차를 따른다.
 - 지금 구현하지 않을 문제나 작업 후보를 `docs/backlog`에 기록할 때 `capture-backlog` 스킬을 사용한다.
-- `capture-backlog`의 세부 절차는 `.agents/skills/capture-backlog/SKILL.md`를 따른다.
+- `capture-backlog`의 세부 절차를 따른다.
 - 사용자가 `$rca-code-review` 또는 코드 리뷰를 명시적으로 요청하면 백로그 브랜치를 RCA 다관점으로 리뷰하고 채팅에 보고한다.
-- `rca-code-review`의 세부 절차는 `.agents/skills/rca-code-review/SKILL.md`를 따른다. 작업 완료 후 자동 실행하지 않는다.
+- `rca-code-review`의 세부 절차를 따른다. 작업 완료 후 자동 실행하지 않는다.
 - 사용자가 코드 작업, 트러블슈팅, 구현 결정, 아키텍처, 동시성, 테스트 또는 교훈을 한국어 기술 문서로 정리해 달라고 하면 `engineering-writeup` 스킬을 사용한다.
-- 스킬의 세부 절차는 `.agents/skills/engineering-writeup/SKILL.md`를 따른다.
-- 사용자가 플러그인 버전 릴리스 또는 원격에 반영된 최신 플러그인의 로컬 설치를 요청하면 `release-plugin` 스킬을 사용한다.
-- `release-plugin`의 세부 절차는 `.agents/skills/release-plugin/SKILL.md`를 따른다.
+- `engineering-writeup`의 세부 절차를 따른다.
 
-## 플러그인 버전
+## 에이전트 어댑터
 
-- `plugins/impati-codex-tools/.codex-plugin/plugin.json`의 `version`을 플러그인 버전의 단일 기준으로 사용한다.
-- 플러그인 배포물에 변경이 생기면 SemVer 영향도를 판단하여 같은 변경에서 버전을 갱신한다.
-- 호환되지 않는 스킬·규칙 계약 변경은 MAJOR, 하위 호환 기능 추가는 MINOR, 호환 가능한 수정은 PATCH로 올린다.
-- 플러그인 밖의 문서나 개발 보조 파일만 변경되었다면 버전을 올리지 않는다.
-- 버전 변경은 `CHANGELOG.md` 최상단에 해당 버전의 의도와 핵심 변경을 함께 기록한다.
-- tag, push와 GitHub release는 사용자의 명시적 요청 없이 자동 수행하지 않는다.
+- 이 하네스 저장소의 특정 에이전트 어댑터를 변경할 때는 해당 `adapters/<agent>/AGENTS.md`를 추가로 읽고 따른다.
+- 공통 원칙과 공통 스킬은 `core`를 단일 원본으로 유지한다.
+- 에이전트별 설치 형식, 훅, 배포 스킬과 스크립트는 해당 `adapters/<agent>`에 둔다.
+- 아직 지원하지 않는 에이전트의 어댑터를 사용자의 명시적 요청 없이 만들지 않는다.

@@ -8,7 +8,7 @@ def main() -> None:
     plugin_root = Path(__file__).resolve().parent.parent
     instructions = (plugin_root / "AGENTS.md").read_text(encoding="utf-8")
     print(
-        "다음은 설치된 Impati Codex Tools의 공통 기본 규칙이다. "
+        "다음은 Impati Agent Tools의 Codex 어댑터가 제공하는 공통 기본 규칙이다. "
         "현재 작업 대상 프로젝트의 더 구체적인 로컬 규칙과 충돌하면 로컬 규칙을 우선한다.\n\n"
         f"{instructions}"
     )

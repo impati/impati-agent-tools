@@ -1,1 +1,1 @@
-plugins/impati-codex-tools/AGENTS.md
+core/AGENTS.md

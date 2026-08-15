@@ -10,7 +10,8 @@ description: Manage versioned releases and local updates of the impati-codex-too
 ## 공통 확인
 
 - 저장소 루트, 현재 브랜치, upstream, `git status`를 확인하라.
-- 플러그인 매니페스트는 `plugins/impati-codex-tools/.codex-plugin/plugin.json`을 사용하라.
+- `adapters/codex/AGENTS.md`를 읽고 적용하라.
+- 플러그인 매니페스트는 `adapters/codex/plugins/impati-codex-tools/.codex-plugin/plugin.json`을 사용하라.
 - 현재 버전과 `CHANGELOG.md` 최신 기록을 읽어라.
 - 다른 작업의 변경을 포함하거나 되돌리지 말라.
 - tag, push, GitHub release는 사용자가 명시적으로 요청한 경우에만 수행하라.
@@ -26,11 +27,12 @@ description: Manage versioned releases and local updates of the impati-codex-too
 
 사용자가 버전을 지정하지 않았다면 추천 버전과 이유를 제시하고 승인받아라. 승인 후 다음을 수행하라.
 
-1. `plugin.json`의 `version`을 확정된 버전으로 변경한다.
-2. `CHANGELOG.md` 최상단에 버전, 날짜, 변경 의도와 핵심 변경을 기록한다.
-3. `python3 scripts/update-local-plugin.py --check`를 실행한다.
-4. 공식 플러그인 및 스킬 검증기를 사용할 수 있으면 함께 실행한다.
-5. 변경을 하나의 논리적 커밋으로 정리하고 버전과 검증 결과를 보고한다.
+1. 공통 코어나 Codex 전용 스킬이 변경되었다면 `python3 adapters/codex/scripts/sync-plugin.py`를 실행한다.
+2. `plugin.json`의 `version`을 확정된 버전으로 변경한다.
+3. `CHANGELOG.md` 최상단에 버전, 날짜, 변경 의도와 핵심 변경을 기록한다.
+4. `python3 adapters/codex/scripts/update-local-plugin.py --check`를 실행한다.
+5. 공식 플러그인 및 스킬 검증기를 사용할 수 있으면 함께 실행한다.
+6. 변경을 하나의 논리적 커밋으로 정리하고 버전과 검증 결과를 보고한다.
 
 릴리스 커밋 메시지는 별도 로컬 규칙이 없으면 `chore: 플러그인 <version> 릴리스` 형식을 사용한다. 사용자의 명시적 요청 없이 tag나 push로 확대하지 말라.
 
@@ -43,7 +45,7 @@ description: Manage versioned releases and local updates of the impati-codex-too
 3. 원격 갱신까지 요청한 맥락이면 `git fetch` 후 ahead/behind 상태를 확인한다.
 4. 로컬이 원격보다 뒤에 있고 분기되지 않았다면 `git pull --ff-only`로 갱신한다.
 5. 로컬 커밋이 앞서 있거나 브랜치가 분기되었으면 임의로 merge, rebase 또는 reset하지 말고 사용자에게 알린다.
-6. 저장소 루트에서 `python3 scripts/update-local-plugin.py`를 실행한다.
+6. 저장소 루트에서 `python3 adapters/codex/scripts/update-local-plugin.py`를 실행한다.
 7. 설치된 버전과 활성화 상태를 보고하고 새 Codex 세션을 시작하도록 안내한다.
 
 훅 정의가 변경되면 Codex가 새 해시에 대한 신뢰를 다시 요구할 수 있으므로 `/hooks` 확인도 안내하라. 스크립트는 원격 변경을 자동으로 가져오지 않으므로 Git 갱신과 설치 단계를 혼동하지 말라.

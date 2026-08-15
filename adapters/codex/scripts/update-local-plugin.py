@@ -58,6 +58,8 @@ def validate_skill(skill_dir: Path) -> None:
 
 
 def validate_package() -> str:
+    synchronized = run("python3", str(SYNC_SCRIPT), "--check")
+    print(synchronized.stdout.strip())
     manifest = load_json(MANIFEST_PATH)
     version = manifest.get("version")
     if manifest.get("name") != PLUGIN_NAME:
@@ -79,7 +81,10 @@ def validate_package() -> str:
     )
     if entry is None:
         raise RuntimeError("marketplace.json에 플러그인 항목이 없습니다.")
-    if entry.get("source") != {"source": "local", "path": f"./plugins/{PLUGIN_NAME}"}:
+    if entry.get("source") != {
+        "source": "local",
+        "path": f"./adapters/codex/plugins/{PLUGIN_NAME}",
+    }:
         raise RuntimeError("marketplace.json의 플러그인 소스가 현재 저장소를 가리키지 않습니다.")
 
     load_json(HOOKS_PATH)
@@ -100,6 +105,8 @@ def ensure_release_tree_is_clean() -> None:
         "status",
         "--porcelain",
         "--",
+        str(CORE_ROOT.relative_to(REPO_ROOT)),
+        str(ADAPTER_ROOT.relative_to(REPO_ROOT)),
         str(PLUGIN_ROOT.relative_to(REPO_ROOT)),
         str(MARKETPLACE_PATH.relative_to(REPO_ROOT)),
     )
@@ -143,13 +150,16 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-PLUGIN_ROOT = REPO_ROOT / "plugins" / PLUGIN_NAME
+REPO_ROOT = Path(__file__).resolve().parents[3]
+CORE_ROOT = REPO_ROOT / "core"
+ADAPTER_ROOT = REPO_ROOT / "adapters" / "codex"
+PLUGIN_ROOT = ADAPTER_ROOT / "plugins" / PLUGIN_NAME
 MANIFEST_PATH = PLUGIN_ROOT / ".codex-plugin" / "plugin.json"
 SKILLS_PATH = PLUGIN_ROOT / "skills"
 HOOKS_PATH = PLUGIN_ROOT / "hooks" / "hooks.json"
 SESSION_HOOK_PATH = PLUGIN_ROOT / "hooks" / "session_start.py"
 MARKETPLACE_PATH = REPO_ROOT / ".agents" / "plugins" / "marketplace.json"
+SYNC_SCRIPT = ADAPTER_ROOT / "scripts" / "sync-plugin.py"
 
 
 def main() -> int:

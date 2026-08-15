@@ -8,7 +8,7 @@
       "name": "impati-codex-tools",
       "source": {
         "source": "local",
-        "path": "./plugins/impati-codex-tools"
+        "path": "./adapters/codex/plugins/impati-codex-tools"
       },
       "policy": {
         "installation": "AVAILABLE",

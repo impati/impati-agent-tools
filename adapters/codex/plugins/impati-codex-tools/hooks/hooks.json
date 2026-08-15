@@ -1,5 +1,5 @@
 {
-  "description": "모든 Codex 세션에 Impati 공통 작업 원칙을 주입한다.",
+  "description": "모든 Codex 세션에 Impati Agent Tools 공통 작업 원칙을 주입한다.",
   "hooks": {
     "SessionStart": [
       {

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Start Work Interview"
+  short_description: "필수 BL 번호로 기능 브랜치와 리뷰 단위 커밋까지 관리"
+  default_prompt: "Use $start-work to connect this code task to a required BL-NNNN item, interview me, create its feature branch, and commit the verified work with Korean summaries."
