@@ -65,7 +65,17 @@ Mention tests, experiments, observations, or verification results only when they
 - Do not create a new test or verification method for the sake of the writeup.
 - Do not add a `테스트와 검증` section by default.
 - Do not turn the note into a checklist of work that should be performed later.
+- Omit routine compile, build, lint, and test success when it only proves that work completed normally.
+- Include a verification result only when it changes the reader's understanding of the cause, decision, solution, limitation, or learning.
 - If an unverified point materially limits the conclusion, state that boundary plainly.
+
+## Separate Research Evidence from Reader-Facing Content
+
+Treat repository inspection, diffs, logs, build output, and test results as source material. Do not copy each collected fact into the note merely because it was checked.
+
+Before including a detail, ask whether removing it would weaken the causal explanation or erase an important lesson. Omit it when the answer is no. Keep delivery evidence, command transcripts, changed-file inventories, and routine validation summaries outside the main narrative unless they are themselves part of the problem being explained.
+
+Write the explanation for the reader; do not describe the writing strategy. Explain a concept directly instead of announcing that concepts will be explained first. Do not mention the prompt, skill, requested structure, evidence-gathering process, or assumptions about making the article accessible unless one of them is genuinely part of the engineering problem.
 
 ## Keep Publication Work Separate
 
@@ -76,6 +86,16 @@ Do not create branches, commits, PRs, MRs, reviews, or publication workflows as 
 When the user refers to repository work, inspect the relevant changed files, git diff, history, or other supplied artifacts as needed. Do not invent implementation details, decisions, outcomes, or verification results.
 
 If the user wants the note saved as a file, create it in the requested location. If no location is requested, return the note in the response.
+
+## Perform a Final Editorial Pass
+
+Before delivering the note:
+
+- remove sentences that explain how the article was written rather than the engineering subject
+- remove completion-report details that do not advance the problem, cause, judgment, solution, or learning
+- ensure each project-specific identifier is introduced through the concept it represents
+- ensure headings follow the actual reasoning rather than a reusable template
+- ensure the result reads as a standalone professional technical article without requiring knowledge of the task or authoring process
 
 ## Style Rules
 
