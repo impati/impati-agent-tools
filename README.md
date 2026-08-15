@@ -11,8 +11,8 @@
 
 현재 포함된 스킬은 다음과 같습니다.
 
-- `start-work`: 기능 코드 작업 전 의도와 주요 결정을 인터뷰하고 검증·리뷰 단위 커밋까지 관리
-- `capture-backlog`: 지금 구현하지 않을 문제의 배경과 목표를 `docs/backlog`에 독립 항목으로 기록
+- `start-work`: 필수 `BL-NNNN` 백로그를 기반으로 인터뷰, feature 브랜치, 검증·리뷰 단위 커밋까지 관리
+- `capture-backlog`: 순차 증가하는 고유 `BL-NNNN` ID로 문제의 배경과 목표를 독립 항목에 기록
 - `engineering-writeup`: 엔지니어링 작업을 한국어 기술 문서로 정리
 
 ## 사용 방법
@@ -34,7 +34,7 @@
 ├── docs/
 │   └── backlog/
 │       ├── README.md
-│       └── NNNN-*.md
+│       └── bl-NNNN-*.md
 └── .agents/
     └── skills/
         ├── capture-backlog/

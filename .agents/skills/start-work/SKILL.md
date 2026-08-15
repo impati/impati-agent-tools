@@ -1,6 +1,6 @@
 ---
 name: start-work
-description: Interview the user before functionality-affecting code work that may change business logic, user behavior, APIs, data, architecture, security, performance, or runtime behavior. Do not auto-trigger for docs-only changes, backlog capture, changelogs, formatting, comments, typos, skills, or work-rule maintenance. Always use when the user explicitly says 작업 시작, 인터뷰해줘, 의도를 파악해줘, start work, or invokes $start-work. Align intent and material decisions before implementation, follow the target project's ADR policy, and finish verified work as reviewable logical commits.
+description: Start every functionality-affecting code task from a required BL-NNNN backlog item, interview the user, create a regular feature branch, and finish as reviewable commits linked to the same ID. Use for work that may change business logic, user behavior, APIs, data, architecture, security, performance, or runtime behavior, and when the user says BL-NNNN 작업 시작, 작업 시작, 인터뷰해줘, start work, or invokes $start-work. Do not auto-trigger for docs-only changes, backlog capture, changelogs, formatting, comments, typos, skills, or work-rule maintenance.
 ---
 
 # Start Work Interview
@@ -26,7 +26,18 @@ description: Interview the user before functionality-affecting code work that ma
 - 기존 구현과 제약을 확인하되 파일 수정, 의존성 설치, 외부 상태 변경은 하지 말라.
 - 조사로 알 수 있는 사실을 사용자에게 질문하지 말라.
 
-## 2. 의도 재진술
+## 2. 백로그 연결 확인
+
+모든 기능 코드 작업을 하나의 `BL-NNNN` 백로그 항목과 연결하라.
+
+- 사용자 요청, 현재 브랜치와 대화에서 백로그 ID를 확인하라.
+- ID가 있으면 `docs/backlog/bl-NNNN-*.md` 항목을 읽고 배경과 목표를 인터뷰 컨텍스트로 사용하라.
+- ID가 없으면 구현이나 브랜치 생성을 시작하지 말고 `capture-backlog`로 항목을 먼저 생성하라.
+- 백로그 항목 생성 커밋이 안전한 기준 브랜치에 반영된 뒤 인터뷰를 계속하라.
+- ID가 존재하지 않거나 여러 항목과 모호하게 일치하면 사용자에게 확인하라.
+- 하나의 기능 코드 작업을 여러 백로그 ID에 임의로 연결하지 말라. 범위가 독립적이면 작업과 브랜치를 나눌지 사용자에게 물어라.
+
+## 3. 의도 재진술
 
 먼저 다음 내용을 짧게 재진술하고 사용자가 바로잡을 기회를 제공하라.
 
@@ -37,7 +48,7 @@ description: Interview the user before functionality-affecting code work that ma
 
 의도가 틀렸거나 빠진 부분이 있으면 수정된 내용을 다시 요약하라.
 
-## 3. 결정 지도 작성
+## 4. 결정 지도 작성
 
 아래 영역 중 작업 결과에 관련된 항목을 식별하라. 체크리스트를 기계적으로 전부 질문하지 말고, 관련성과 영향이 있는 결정을 빠짐없이 찾아라.
 
@@ -52,10 +63,11 @@ description: Interview the user before functionality-affecting code work that ma
 - 테스트 수준, 검증 명령과 수용 기준
 - 배포, 점진 적용, 롤백과 문서화
 - 커밋 컨벤션, 리뷰 단위와 커밋 경계
+- 백로그 ID, feature 브랜치 이름과 기준 브랜치
 
 저장소 조사에서 발견한 제약 때문에 선택지가 제한된다면 그 근거를 설명하라.
 
-## 4. 상세 인터뷰 진행
+## 5. 상세 인터뷰 진행
 
 한 번에 하나의 결정 주제에 집중하라. 관련 질문은 작은 묶음으로 물을 수 있지만 서로 다른 결정을 한꺼번에 쏟아내지 말라.
 
@@ -69,7 +81,7 @@ description: Interview the user before functionality-affecting code work that ma
 
 선택지가 하나뿐이면 억지 대안을 만들지 말고 제약과 이유를 설명한 뒤 확인받아라. 사용자의 답변이 새로운 모호함이나 결정을 만들면 후속 질문을 이어가라.
 
-## 5. 미결정 사항 점검
+## 6. 미결정 사항 점검
 
 인터뷰가 끝났다고 판단하기 전에 다음을 점검하라.
 
@@ -81,22 +93,37 @@ description: Interview the user before functionality-affecting code work that ma
 
 미결정 사항이 있으면 구현으로 넘어가지 말고 질문하라.
 
-## 6. 최종 작업 브리프 승인
+## 7. 최종 작업 브리프 승인
 
 인터뷰 결과를 다음 구조로 간결하게 정리하라.
 
 - **의도:** 해결하려는 문제와 사용자 가치
+- **백로그:** `BL-NNNN` ID, 제목과 문서 경로
 - **범위:** 이번 작업에 포함할 내용
 - **비범위:** 의도적으로 하지 않을 내용
 - **결정:** 선택한 방향과 이유
 - **위임된 결정:** 에이전트가 판단해도 되는 세부사항과 기본 방침
 - **완료 기준:** 검증 가능한 결과
 - **커밋 계획:** 예상되는 논리적 리뷰 단위와 적용할 커밋 컨벤션
+- **브랜치 계획:** 기준 브랜치와 생성할 feature 브랜치
 - **위험과 제약:** 남아 있는 트레이드오프 또는 주의점
 
 사용자에게 이 브리프로 작업을 시작해도 되는지 명시적으로 물어라. 승인 전에는 ADR이나 구현 파일을 작성하지 말라.
 
-## 7. ADR 기록
+## 8. feature 브랜치 생성
+
+최종 작업 브리프 승인 후 구현 전에 백로그 ID가 포함된 feature 브랜치를 준비하라.
+
+- 대상 프로젝트의 로컬 브랜치 규칙을 우선하라.
+- 별도 규칙이 없으면 `feature/bl-NNNN-kebab-case-title` 형식을 사용하라.
+- 브랜치 제목은 백로그 파일 제목을 기반으로 짧게 작성하라.
+- 브랜치를 만들기 전에 현재 브랜치, 기준 브랜치와 작업 트리 상태를 확인하라.
+- 다른 작업의 변경이 있거나 안전한 기준 브랜치를 판단할 수 없으면 사용자에게 물어라.
+- 같은 이름의 브랜치가 있으면 덮어쓰지 말고 기존 브랜치를 이어갈지 새 이름을 사용할지 확인하라.
+- 이미 올바른 백로그 feature 브랜치에 있다면 새로 만들지 말고 계속 사용하라.
+- 자동으로 push하지 말라.
+
+## 9. ADR 기록
 
 사용자가 최종 브리프를 승인하면 대상 프로젝트의 로컬 규칙에서 ADR을 요구하거나 허용하는지 확인하라. ADR을 사용하는 프로젝트에서는 구현 전에 `references/adr-convention.md`를 읽고 `docs/adr`에 ADR을 작성하라.
 
@@ -106,7 +133,7 @@ description: Interview the user before functionality-affecting code work that ma
 - 저장소에 다른 ADR 규약이 있으면 더 가까운 저장소 규약을 우선하라.
 - 대상 프로젝트가 ADR을 사용하지 않으면 최종 작업 브리프를 대화에 유지하고 ADR 작성 없이 구현으로 넘어가라.
 
-## 8. 승인된 범위로 실행
+## 10. 승인된 범위로 실행
 
 필요한 ADR을 작성했거나 로컬 규칙에 따라 생략한 뒤 승인된 범위 안에서만 구현하라.
 
@@ -115,7 +142,7 @@ description: Interview the user before functionality-affecting code work that ma
 - 단순한 가역적 세부 구현은 승인된 위임 방침에 따라 처리하라.
 - 완료 시 합의한 완료 기준으로 검증하고 `CHANGELOG.md`를 갱신하라.
 
-## 9. 리뷰 단위로 커밋하고 보고
+## 11. 리뷰 단위로 커밋하고 보고
 
 검증과 `CHANGELOG.md` 갱신이 끝나면 현재 작업의 변경을 사용자가 커밋별로 리뷰할 수 있도록 정리하라.
 
@@ -140,7 +167,10 @@ description: Interview the user before functionality-affecting code work that ma
 ### 커밋 생성
 
 - 대상 프로젝트의 로컬 커밋 규칙과 메시지 컨벤션을 우선하라.
-- 별도 컨벤션이 없으면 Conventional Commits 형식으로 간결하게 작성하라.
+- 모든 기능 코드 커밋에 현재 `BL-NNNN` 추적 ID를 포함하라.
+- 별도 컨벤션이 없으면 `<type>(bl-NNNN): <한국어 요약>` 형식을 사용하라.
+- `type`은 작업 의도에 맞춰 `feat`, `fix`, `refactor`, `test`, `docs`, `chore` 등에서 선택하라.
+- 요약은 간결한 한국어로 작성하라.
 - 각 커밋을 만들기 전에 staged diff가 해당 의도와 일치하는지 확인하라.
 - 가능한 범위에서 각 커밋 단위의 관련 검증을 수행하라.
 - 사용자가 커밋하지 말라고 했거나 로컬 규칙이 자동 커밋을 금지하면 커밋하지 말고 변경 상태를 보고하라.
@@ -155,6 +185,8 @@ description: Interview the user before functionality-affecting code work that ma
 - 해당 커밋의 작업 의도와 핵심 변경
 - 수행한 검증과 결과
 - 남아 있는 미커밋 변경과 그 이유
+- 백로그 ID와 문서 경로
+- 작업 브랜치 이름
 
 커밋이 하나여도 같은 형식으로 보고하라.
 

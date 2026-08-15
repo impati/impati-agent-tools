@@ -1,4 +1,4 @@
 interface:
   display_name: "Capture Backlog"
-  short_description: "떠오른 문제와 목표를 독립 백로그 항목으로 빠르게 기록"
-  default_prompt: "Use $capture-backlog to capture this future work as a concise backlog item with its background and goal."
+  short_description: "고유 BL 번호로 문제와 목표를 독립 백로그 항목에 기록"
+  default_prompt: "Use $capture-backlog to allocate a unique BL-NNNN ID and capture this future work with its background and goal."

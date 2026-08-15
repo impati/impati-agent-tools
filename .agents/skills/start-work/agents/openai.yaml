@@ -1,4 +1,4 @@
 interface:
   display_name: "Start Work Interview"
-  short_description: "기능 코드 작업 전 의도 인터뷰부터 리뷰 단위 커밋까지 관리"
-  default_prompt: "Use $start-work to align intent and material decisions before functionality-affecting code work, then implement, verify, and commit it in reviewable logical units."
+  short_description: "필수 BL 번호로 기능 브랜치와 리뷰 단위 커밋까지 관리"
+  default_prompt: "Use $start-work to connect this code task to a required BL-NNNN item, interview me, create its feature branch, and commit the verified work with Korean summaries."

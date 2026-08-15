@@ -1,6 +1,6 @@
 ---
 name: capture-backlog
-description: Capture a problem, idea, or future work item that should be remembered but not implemented now. Use when the user says 백로그로 남겨줘, 나중에 할 일로 기록해줘, 다음에 해야 할 일로 남겨줘, capture this backlog, or invokes $capture-backlog. Create one Jira-ticket-like file per item under docs/backlog with only its background and goal, without status tracking or starting implementation.
+description: Capture a problem, idea, or future work item that should be remembered but not implemented now. Use when the user says 백로그로 남겨줘, 나중에 할 일로 기록해줘, 다음에 해야 할 일로 남겨줘, capture this backlog, or invokes $capture-backlog. Allocate a sequential unique BL-NNNN tracking ID and create one Jira-ticket-like file per item under docs/backlog with only its background and goal, without status tracking or starting implementation.
 ---
 
 # Capture Backlog
@@ -28,15 +28,22 @@ description: Capture a problem, idea, or future work item that should be remembe
 
 ## 3. 파일 생성
 
-기존 `NNNN-*.md` 파일 중 가장 큰 번호 다음 번호를 네 자리로 부여하라. 첫 항목은 `0001`로 시작하라.
+각 백로그 항목에 `BL-NNNN` 형식의 추적 ID를 부여하라. 이 ID는 백로그 파일, 작업 브랜치, 커밋과 코드 리뷰를 연결하는 기준이다.
 
-파일명은 `docs/backlog/NNNN-kebab-case-title.md` 형식을 사용하라. 제목은 문제나 목표를 짧고 구체적으로 나타내라.
+- 현재 `docs/backlog`와 Git에서 확인 가능한 전체 이력의 `BL-NNNN` 번호를 조사하라.
+- 지금까지 사용한 가장 큰 번호의 다음 번호를 네 자리로 부여하라. 첫 항목은 `BL-0001`이다.
+- 삭제된 항목의 번호도 다시 사용하지 말라.
+- 파일을 쓰기 직전에 같은 ID가 생성되지 않았는지 다시 확인하고, 충돌하면 다음 번호를 다시 할당하라.
+- 중앙 번호 발급 시스템이 없으므로 서로 다른 clone에서 동시에 만든 ID는 병합 시 충돌할 수 있다. 충돌을 발견하면 임의로 덮어쓰지 말고 사용자와 새 번호를 확정하라.
+
+파일명은 `docs/backlog/bl-NNNN-kebab-case-title.md` 형식을 사용하라. 제목은 문제나 목표를 짧고 구체적으로 나타내라.
 
 다음 형식만 기본으로 사용하라.
 
 ```markdown
 # 제목
 
+- **ID:** BL-NNNN
 - **기록일:** YYYY-MM-DD
 
 ## 배경
@@ -56,9 +63,9 @@ description: Capture a problem, idea, or future work item that should be remembe
 
 - `git status`와 diff를 확인하고 새 백로그 항목만 스테이징하라.
 - 기존 사용자 변경을 포함하지 말라.
-- 로컬 커밋 규칙을 우선하고, 규칙이 없으면 `docs: capture backlog NNNN <title>` 형식을 사용하라.
+- 로컬 커밋 규칙을 우선하고, 규칙이 없으면 `docs(bl-NNNN): <한국어 요약>` 형식을 사용하라.
 - 저장소가 Git을 사용하지 않거나 사용자가 커밋하지 말라고 하면 파일만 생성하고 상태를 보고하라.
-- 완료 시 파일 경로, 한 줄 목표, 커밋 해시와 메시지를 보고하라.
+- 완료 시 백로그 ID, 파일 경로, 한 줄 목표, 커밋 해시와 메시지를 보고하라.
 - push, 브랜치 생성, PR 생성은 별도 요청 없이는 수행하지 말라.
 
 나중에 이 항목을 실제 기능 코드 작업으로 시작하라는 요청을 받으면 그때 `start-work`를 적용하라.
