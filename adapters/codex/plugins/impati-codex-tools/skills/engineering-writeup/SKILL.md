@@ -1,113 +1,87 @@
 ---
 name: engineering-writeup
-description: Use when the user asks to document, summarize, or write up code work, troubleshooting, implementation decisions, architecture choices, concurrency handling, tests, or lessons learned as a Korean technical note with consistent structure.
+description: Use when the user asks to document, summarize, or write up an engineering problem-solving process, troubleshooting, implementation decisions, architecture choices, concurrency handling, or lessons learned as a Korean technical note that preserves the reasoning and learning from the work.
 ---
 
 # Engineering Writeup
 
-Use this skill when the user asks for a document, technical note, retrospective, blog-style explanation, or summary of recent engineering work.
+Create an evidence-based Korean technical note that helps a reader follow how an engineering problem was understood and solved, and what can be learned from that process.
 
-The output should explain not only what was implemented, but also why the chosen approach was selected among possible alternatives.
+Treat the writeup as a problem-solving narrative, not an implementation completion report, test plan, PR description, or MR description.
 
-## Default Output Structure
+## Establish the Writing Context
 
-Use this structure unless the user explicitly asks for another format.
+Before writing, identify from the request and available evidence:
 
-### 개요
+- the problem the note should illuminate
+- the intended reader and what they are likely to know already
+- the most useful learning to preserve
+- the relevant evidence, such as code changes, discussion, logs, experiments, or existing test results
 
-Briefly explain the topic, context, and final outcome.
+If the user has already made the purpose and audience clear, use that context without asking again. When essential context is absent, state a minimal assumption instead of inventing project details.
 
-Include:
-- what area of the system was changed
-- what business or technical goal the work served
-- the final direction in one or two sentences
+## Reconstruct the Problem-Solving Process
 
-### 문제 상황
+Explain the causal and decision-making flow of the work. Include only stages that materially help the reader understand the problem or the learning:
 
-Explain what problem was encountered and why it mattered.
+1. Describe the initial situation and why it became a problem.
+2. Explain the cause, constraint, or failure mode that shaped the solution.
+3. Introduce the concepts needed to understand the reasoning.
+4. Compare meaningful alternatives when they actually influenced the decision.
+5. Explain the selected approach, accepted tradeoffs, and important implementation boundaries.
+6. Connect the outcome back to the original problem.
+7. Draw out reusable lessons, changed understanding, and concerns worth remembering.
 
-Include:
-- the symptom or requirement
-- the root cause or risk
-- what could go wrong if it was not handled
-- relevant code flow, domain rule, or system constraint
+Do not manufacture alternatives merely to fill a section. Preserve uncertainty, discarded hypotheses, and failed attempts when they contributed to the learning.
 
-For concurrency, data consistency, transactions, external systems, or test reliability, name the specific failure mode such as race condition, stale read, lost update, timeout, connection scope, or nondeterministic test.
+## Explain Concepts Before Project Details
 
-### 해결 방법 후보
+For readers who may not know the project:
 
-Describe the viable ways to solve the problem.
+- define a new technical term briefly when it first becomes necessary
+- explain the general mechanism before naming the project's classes, modules, methods, or infrastructure
+- connect each project-specific name to the conceptual role it performs
+- use code snippets only when they make the reasoning easier to understand
 
-Use one subsection per candidate when there are multiple meaningful options.
+Prefer a progression such as “concept → why it matters here → how this project applied it” over beginning with internal identifiers.
 
-For each candidate, explain:
-- what the approach is
-- how it would solve the problem
-- strengths
-- weaknesses or operational caveats
-- whether it fits the current codebase and why
+## Choose a Natural Structure
 
-If there is only one realistic solution, say that briefly and explain why alternatives were not meaningful in this context.
+Use headings that reflect the actual story instead of applying a fixed template. A useful note will often cover the following ideas, but not necessarily with these titles or as separate sections:
 
-### 선택한 해결 방안
+- background and problem
+- cause and constraints
+- concepts needed for understanding
+- explored approaches and decision
+- application to the project
+- outcome and learning
 
-Explain the final decision.
+Omit irrelevant sections. Adjust the explanation density to the audience and complexity of the problem.
 
-Include:
-- the selected approach
-- why it was chosen over the alternatives
-- which constraints made it a good fit
-- what tradeoffs were accepted
+## Handle Tests and Verification as Evidence
 
-Prefer concrete project details over generic theory. Mention class names, method names, interfaces, database functions, libraries, or test tools when known.
+Mention tests, experiments, observations, or verification results only when they were actually performed and help explain why the conclusion is credible or what was learned.
 
-### 구현 내용
+- Do not create a new test or verification method for the sake of the writeup.
+- Do not add a `테스트와 검증` section by default.
+- Do not turn the note into a checklist of work that should be performed later.
+- If an unverified point materially limits the conclusion, state that boundary plainly.
 
-Explain how the selected approach was implemented.
+## Keep Publication Work Separate
 
-Include:
-- important classes, methods, and boundaries
-- where abstraction was introduced and why
-- how production and test implementations differ, if applicable
-- any important lifecycle, transaction, connection, or resource cleanup details
+Do not create branches, commits, PRs, MRs, reviews, or publication workflows as part of this skill. Use a separate skill when the user asks to publish or deliver the writeup through one of those workflows.
 
-Use short code snippets only when they clarify the explanation.
+## Evidence Rules
 
-### 테스트와 검증
+When the user refers to repository work, inspect the relevant changed files, git diff, history, or other supplied artifacts as needed. Do not invent implementation details, decisions, outcomes, or verification results.
 
-Explain how correctness was verified.
-
-Include:
-- what behavior the test proves
-- how test data was arranged
-- important testing tools or techniques
-- expected result
-- any remaining test gap or limitation
-
-For concurrency tests, explain how simultaneous execution was coordinated and what invariant was asserted.
-
-### 마무리
-
-Summarize the learning and final value.
-
-Include:
-- what became safer, clearer, or more maintainable
-- the main technical takeaway
-- any follow-up concern worth remembering
+If the user wants the note saved as a file, create it in the requested location. If no location is requested, return the note in the response.
 
 ## Style Rules
 
 - Write in Korean.
-- Keep the tone practical and engineering-focused.
-- Prefer clear paragraphs and short bullet lists.
-- Do not force every section to be long; adapt depth to the complexity of the work.
-- Avoid marketing language.
-- Avoid listing technologies without explaining their role in this problem.
-- Make the decision process visible: problem, candidate options, selected option, reason.
-- If context is missing, state the assumption and write from the available code or conversation.
-
-## Before Writing
-
-When working in a repository and the user refers to recent code work, inspect the relevant changed files or git diff if needed before writing. Do not invent implementation details.
-
-If the user wants the note saved as a file, create it in the requested location. If no location is requested, ask only when saving the file is required; otherwise return the document in the response.
+- Keep the tone practical, explanatory, and engineering-focused.
+- Make the reasoning and learning more prominent than a list of changed files.
+- Prefer clear paragraphs and short lists where they improve comprehension.
+- Avoid marketing language and unexplained technology lists.
+- Use concrete project details after establishing the concepts they represent.
