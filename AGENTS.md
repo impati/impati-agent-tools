@@ -57,5 +57,7 @@
 - `start-work`의 세부 절차는 `.agents/skills/start-work/SKILL.md`를 따른다.
 - 지금 구현하지 않을 문제나 작업 후보를 `docs/backlog`에 기록할 때 `capture-backlog` 스킬을 사용한다.
 - `capture-backlog`의 세부 절차는 `.agents/skills/capture-backlog/SKILL.md`를 따른다.
+- 사용자가 `$rca-code-review` 또는 코드 리뷰를 명시적으로 요청하면 백로그 브랜치를 RCA 다관점으로 리뷰하고 채팅에 보고한다.
+- `rca-code-review`의 세부 절차는 `.agents/skills/rca-code-review/SKILL.md`를 따른다. 작업 완료 후 자동 실행하지 않는다.
 - 사용자가 코드 작업, 트러블슈팅, 구현 결정, 아키텍처, 동시성, 테스트 또는 교훈을 한국어 기술 문서로 정리해 달라고 하면 `engineering-writeup` 스킬을 사용한다.
 - 스킬의 세부 절차는 `.agents/skills/engineering-writeup/SKILL.md`를 따른다.

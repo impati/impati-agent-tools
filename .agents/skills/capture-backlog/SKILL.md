@@ -68,4 +68,4 @@ description: Capture a problem, idea, or future work item that should be remembe
 - 완료 시 백로그 ID, 파일 경로, 한 줄 목표, 커밋 해시와 메시지를 보고하라.
 - push, 브랜치 생성, PR 생성은 별도 요청 없이는 수행하지 말라.
 
-나중에 이 항목을 실제 기능 코드 작업으로 시작하라는 요청을 받으면 그때 `start-work`를 적용하라.
+나중에 이 항목을 실제 기능 코드 작업으로 시작할 수 있음을 안내하고, 시작하려면 `BL-NNNN 작업 시작` 또는 `$start-work`를 요청하도록 알려라. 사용자의 명시적 요청 없이 `start-work`를 자동 실행하거나 브랜치를 만들지 말라.
