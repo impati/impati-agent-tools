@@ -1,0 +1,4 @@
+interface:
+  display_name: "Start Work Interview"
+  short_description: "개발 전 결정 인터뷰부터 ADR과 리뷰 단위 커밋까지 관리"
+  default_prompt: "Use $start-work to align intent and decisions, record the approved ADR, implement and verify the work, then commit it in reviewable logical units."

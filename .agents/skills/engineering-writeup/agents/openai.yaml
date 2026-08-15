@@ -1,0 +1,4 @@
+interface:
+  display_name: "Engineering Writeup"
+  short_description: "코드 작업과 기술 결정을 한국어 문서로 정리"
+  default_prompt: "Use $engineering-writeup to turn the recent engineering work into a structured Korean technical note."
