@@ -61,3 +61,14 @@
 - `rca-code-review`의 세부 절차는 `.agents/skills/rca-code-review/SKILL.md`를 따른다. 작업 완료 후 자동 실행하지 않는다.
 - 사용자가 코드 작업, 트러블슈팅, 구현 결정, 아키텍처, 동시성, 테스트 또는 교훈을 한국어 기술 문서로 정리해 달라고 하면 `engineering-writeup` 스킬을 사용한다.
 - 스킬의 세부 절차는 `.agents/skills/engineering-writeup/SKILL.md`를 따른다.
+- 사용자가 플러그인 버전 릴리스 또는 원격에 반영된 최신 플러그인의 로컬 설치를 요청하면 `release-plugin` 스킬을 사용한다.
+- `release-plugin`의 세부 절차는 `.agents/skills/release-plugin/SKILL.md`를 따른다.
+
+## 플러그인 버전
+
+- `plugins/impati-codex-tools/.codex-plugin/plugin.json`의 `version`을 플러그인 버전의 단일 기준으로 사용한다.
+- 플러그인 배포물에 변경이 생기면 SemVer 영향도를 판단하여 같은 변경에서 버전을 갱신한다.
+- 호환되지 않는 스킬·규칙 계약 변경은 MAJOR, 하위 호환 기능 추가는 MINOR, 호환 가능한 수정은 PATCH로 올린다.
+- 플러그인 밖의 문서나 개발 보조 파일만 변경되었다면 버전을 올리지 않는다.
+- 버전 변경은 `CHANGELOG.md` 최상단에 해당 버전의 의도와 핵심 변경을 함께 기록한다.
+- tag, push와 GitHub release는 사용자의 명시적 요청 없이 자동 수행하지 않는다.

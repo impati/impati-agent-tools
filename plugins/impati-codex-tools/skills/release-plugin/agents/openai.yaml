@@ -1,0 +1,4 @@
+interface:
+  display_name: "Release Plugin"
+  short_description: "플러그인 버전 릴리스와 로컬 업데이트를 안전하게 관리"
+  default_prompt: "Use $release-plugin to prepare a versioned release or install the latest plugin update locally."
