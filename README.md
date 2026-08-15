@@ -15,6 +15,7 @@
 - `capture-backlog`: 순차 ID로 문제의 배경과 목표 기록
 - `rca-code-review`: 명시적 요청 시 백로그 브랜치를 RCA 다관점으로 리뷰
 - `engineering-writeup`: 엔지니어링 작업을 한국어 기술 문서로 정리
+- `publish-engineering-writeup`: 검증된 기술 문서를 블로그 게시물로 변환해 안전한 Draft PR 생성
 
 `.agents/skills/`는 에이전트가 이 저장소의 스킬을 발견하기 위한 심볼릭 링크 모음입니다. 공통 스킬의 실제 원본은 `core/skills/`, Codex 전용 스킬의 원본은 `adapters/codex/skills/`에 있으므로 `.agents/skills/`의 링크를 직접 수정하지 않습니다.
 
@@ -110,6 +111,7 @@ codex plugin add impati-codex-tools@personal
 │   └── skills/
 │       ├── capture-backlog/
 │       ├── engineering-writeup/
+│       ├── publish-engineering-writeup/
 │       ├── rca-code-review/
 │       └── start-work/
 ├── adapters/
