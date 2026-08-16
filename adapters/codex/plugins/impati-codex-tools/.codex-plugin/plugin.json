@@ -1,6 +1,6 @@
 {
   "name": "impati-codex-tools",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "사용자 의도 확인 원칙과 반복 가능한 개발 워크플로를 Codex 세션에 제공한다.",
   "author": {
     "name": "impati"
