@@ -49,7 +49,15 @@ description: Manage versioned releases and local updates of the impati-claude-to
 6. 저장소 루트에서 `python3 adapters/claude/scripts/update-local-plugin.py`를 실행한다.
 7. 설치된 버전과 활성화 상태를 보고하고 새 Claude Code 세션을 시작하도록 안내한다.
 
-설치 범위를 바꿔야 하면 `--scope user|project|local`을 사용한다. 사용자가 특정 프로젝트에서만 이 플러그인을 쓰고 싶다고 하면 `user` 대신 `project` 또는 `local`을 제안하라. 스크립트는 원격 변경을 자동으로 가져오지 않으므로 Git 갱신과 설치 단계를 혼동하지 말라.
+설치 범위를 바꿔야 하면 `--scope user|project|local`을 사용한다. 사용자가 특정 프로젝트에서만 이 플러그인을 쓰고 싶다고 하면 `user` 대신 `project` 또는 `local`을 제안하라.
+
+`project` 또는 `local` 범위는 명령을 실행한 디렉터리가 아니라 `--project-dir`로 지정한 프로젝트에 설치된다. 이 저장소가 아닌 다른 프로젝트가 대상이면 반드시 `--project-dir`를 함께 넘겨라. 생략하면 이 저장소에 설치된다.
+
+```bash
+python3 adapters/claude/scripts/update-local-plugin.py --scope local --project-dir <프로젝트 경로>
+```
+
+이미 설치된 상태에서는 스크립트가 기존 설치를 먼저 제거한 뒤 다시 설치한다. `claude plugin install`만으로는 버전이 갱신되지 않으므로 이 순서를 건너뛰지 말라. 스크립트는 원격 변경을 자동으로 가져오지 않으므로 Git 갱신과 설치 단계를 혼동하지 말라.
 
 ## 다른 플러그인과의 공존
 

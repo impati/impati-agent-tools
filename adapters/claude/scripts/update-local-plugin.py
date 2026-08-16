@@ -13,6 +13,7 @@ from pathlib import Path
 
 PLUGIN_NAME = "impati-claude-tools"
 MARKETPLACE_NAME = "personal"
+PLUGIN_ID = f"{PLUGIN_NAME}@{MARKETPLACE_NAME}"
 PLUGIN_SOURCE = f"./adapters/claude/plugins/{PLUGIN_NAME}"
 SEMVER = re.compile(
     r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
@@ -21,10 +22,12 @@ SEMVER = re.compile(
 )
 
 
-def run(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
+def run(
+    *args: str, check: bool = True, cwd: Path | None = None
+) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         args,
-        cwd=REPO_ROOT,
+        cwd=cwd or REPO_ROOT,
         check=check,
         text=True,
         stdout=subprocess.PIPE,
@@ -32,8 +35,8 @@ def run(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
     )
 
 
-def run_json(*args: str) -> object:
-    result = run(*args)
+def run_json(*args: str, cwd: Path | None = None) -> object:
+    result = run(*args, cwd=cwd)
     try:
         return json.loads(result.stdout)
     except json.JSONDecodeError as error:
@@ -178,42 +181,74 @@ def ensure_marketplace_registered() -> None:
         print(updated.stdout.strip())
 
 
-def install(version: str, scope: str) -> None:
+def find_installed(project_dir: Path) -> dict | None:
+    """설치 상태는 대상 프로젝트 기준으로 달라지므로 그 디렉터리에서 조회한다."""
+    plugins = run_json("claude", "plugin", "list", "--json", cwd=project_dir)
+    if not isinstance(plugins, list):
+        raise RuntimeError("플러그인 목록을 배열로 읽지 못했습니다.")
+    return next(
+        (
+            item
+            for item in plugins
+            if isinstance(item, dict) and item.get("id") == PLUGIN_ID
+        ),
+        None,
+    )
+
+
+def install(version: str, scope: str, project_dir: Path) -> None:
     ensure_release_tree_is_clean()
     ensure_marketplace_registered()
+
+    existing = find_installed(project_dir)
+    if existing is not None:
+        # `claude plugin install`은 이미 설치된 플러그인을 no-op으로 넘기므로
+        # 새 버전을 반영하려면 먼저 제거해야 한다.
+        removed = run(
+            "claude",
+            "plugin",
+            "uninstall",
+            PLUGIN_NAME,
+            "--scope",
+            existing.get("scope") or scope,
+            "--keep-data",
+            cwd=project_dir,
+        )
+        print(removed.stdout.strip())
+
     added = run(
         "claude",
         "plugin",
         "install",
-        f"{PLUGIN_NAME}@{MARKETPLACE_NAME}",
+        PLUGIN_ID,
         "--scope",
         scope,
+        cwd=project_dir,
     )
     print(added.stdout.strip())
 
-    plugins = run_json("claude", "plugin", "list", "--json")
-    if not isinstance(plugins, list):
-        raise RuntimeError("플러그인 목록을 배열로 읽지 못했습니다.")
-    expected_id = f"{PLUGIN_NAME}@{MARKETPLACE_NAME}"
-    installed = next(
-        (
-            item
-            for item in plugins
-            if isinstance(item, dict) and item.get("id") == expected_id
-        ),
-        None,
-    )
+    installed = find_installed(project_dir)
     if installed is None:
-        raise RuntimeError(f"설치 후 플러그인을 목록에서 찾지 못했습니다: {expected_id}")
+        raise RuntimeError(f"설치 후 플러그인을 목록에서 찾지 못했습니다: {PLUGIN_ID}")
     if not installed.get("enabled"):
         raise RuntimeError(f"플러그인이 활성화되지 않았습니다: {installed}")
     if installed.get("version") != version:
         raise RuntimeError(
             f"설치된 버전이 {version}이 아닙니다: {installed.get('version')!r}"
         )
+    if installed.get("scope") != scope:
+        raise RuntimeError(
+            f"설치 범위가 {scope}가 아닙니다: {installed.get('scope')!r}"
+        )
+    if scope in ("project", "local"):
+        project_path = installed.get("projectPath")
+        if project_path is None or Path(project_path).resolve() != project_dir:
+            raise RuntimeError(
+                f"설치 대상 프로젝트가 {project_dir}가 아닙니다: {project_path!r}"
+            )
     print(
-        f"확인 완료: {expected_id} {installed['version']} "
-        f"(scope: {installed.get('scope')}, enabled)"
+        f"확인 완료: {PLUGIN_ID} {installed['version']} "
+        f"(scope: {installed.get('scope')}, enabled, 대상: {project_dir})"
     )
 
 
@@ -229,6 +264,15 @@ def parse_args() -> argparse.Namespace:
         choices=("user", "project", "local"),
         default="user",
         help="설치 범위를 지정합니다. 기본값은 user입니다.",
+    )
+    parser.add_argument(
+        "--project-dir",
+        type=Path,
+        default=REPO_ROOT,
+        help=(
+            "project 또는 local 범위로 설치할 대상 프로젝트 경로입니다. "
+            "기본값은 이 저장소 루트입니다."
+        ),
     )
     return parser.parse_args()
 
@@ -256,7 +300,10 @@ def main() -> int:
         print(f"패키지 검증 완료: {PLUGIN_NAME} {version}")
         if args.check:
             return 0
-        install(version, args.scope)
+        project_dir = args.project_dir.expanduser().resolve()
+        if not project_dir.is_dir():
+            raise RuntimeError(f"대상 프로젝트 경로가 없습니다: {project_dir}")
+        install(version, args.scope, project_dir)
         print("새 Claude Code 세션에서 업데이트된 플러그인을 확인하세요.")
         print("설치 요약에 /reload-plugins 안내가 있으면 해당 명령을 실행하세요.")
         return 0

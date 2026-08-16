@@ -122,9 +122,15 @@ python3 adapters/claude/scripts/update-local-plugin.py
 - `claude plugin validate`로 매니페스트 검증
 - 어댑터 간 버전 일치 확인
 - 필요한 경우 현재 clone을 로컬 마켓플레이스로 등록하고, 이미 등록되어 있으면 갱신
-- `impati-claude-tools@personal` 재설치와 설치 버전, `enabled` 상태 확인
+- 기존 설치 제거 후 `impati-claude-tools@personal` 재설치와 설치 버전, 범위, `enabled` 상태 확인
 
-`--check`는 설치 상태를 바꾸지 않고 검증만 수행하며, `--scope`로 설치 범위를 지정할 수 있습니다. `personal` 마켓플레이스가 다른 소스로 이미 등록되어 있으면 기존 등록을 덮어쓰지 않고 중단합니다.
+`--check`는 설치 상태를 바꾸지 않고 검증만 수행합니다. `--scope`로 설치 범위를, `--project-dir`로 `project`·`local` 범위의 대상 프로젝트를 지정합니다. 이 저장소가 아닌 프로젝트에 설치할 때는 `--project-dir`가 필요합니다.
+
+```bash
+python3 adapters/claude/scripts/update-local-plugin.py --scope local --project-dir ~/my-project
+```
+
+`claude plugin install`은 이미 설치된 플러그인을 그냥 넘기기 때문에 스크립트가 먼저 기존 설치를 제거합니다. `personal` 마켓플레이스가 다른 소스로 이미 등록되어 있으면 기존 등록을 덮어쓰지 않고 중단합니다.
 
 ## 플러그인 버전
 
