@@ -14,7 +14,7 @@ description: Review a BL-NNNN backlog branch only when the user explicitly asks 
 다음을 읽기 전용으로 확인하라.
 
 - 사용자 요청에 포함된 `BL-NNNN`
-- `docs/backlog/bl-NNNN-*.md`의 배경과 목표
+- `docs/backlog/bl-NNNN-*.md` 또는 `docs/backlog/done/bl-NNNN-*.md`의 배경과 목표
 - 현재 브랜치와 기준 브랜치
 - 기준 브랜치 이후의 커밋 목록과 각 diff
 - 누적 브랜치 diff

@@ -31,7 +31,8 @@ description: Start every functionality-affecting code task from a required BL-NN
 모든 기능 코드 작업을 하나의 `BL-NNNN` 백로그 항목과 연결하라.
 
 - 사용자 요청, 현재 브랜치와 대화에서 백로그 ID를 확인하라.
-- ID가 있으면 `docs/backlog/bl-NNNN-*.md` 항목을 읽고 배경과 목표를 인터뷰 컨텍스트로 사용하라.
+- ID가 있으면 `docs/backlog/bl-NNNN-*.md` 항목을 읽고 배경과 목표를 인터뷰 컨텍스트로 사용하라. 열린 항목에 없으면 `docs/backlog/done/bl-NNNN-*.md`도 확인하라.
+- 항목이 이미 `docs/backlog/done`에 있으면 완료된 작업이므로, 이어서 작업할지 새 백로그 항목을 만들지 사용자에게 확인하라.
 - ID가 없으면 구현이나 브랜치 생성을 시작하지 말고 `capture-backlog`로 항목을 먼저 생성하라.
 - 백로그 항목 생성 커밋이 안전한 기준 브랜치에 반영된 뒤 인터뷰를 계속하라.
 - ID가 존재하지 않거나 여러 항목과 모호하게 일치하면 사용자에게 확인하라.
@@ -141,6 +142,9 @@ description: Start every functionality-affecting code task from a required BL-NN
 - 새 결정이 승인되면 ADR을 사용하는 프로젝트에서는 같은 ADR의 `추가 결정`에 반영하라. ADR을 사용하지 않으면 대화의 최종 작업 브리프를 갱신한 뒤 계속하라.
 - 단순한 가역적 세부 구현은 승인된 위임 방침에 따라 처리하라.
 - 완료 시 합의한 완료 기준으로 검증하라.
+- 검증을 통과하면 백로그 항목을 `git mv docs/backlog/bl-NNNN-*.md docs/backlog/done/`으로 완료 보관소에 옮겨라. 파일 내용은 고치지 말고 경로만 바꿔라.
+- 검증이 실패했거나 사용자가 작업을 중단하면 옮기지 말라. 완료 보관소는 검증을 통과한 작업만 담는다.
+- 대상 저장소에 다른 백로그 관례가 있으면 그 관례를 우선하고, `docs/backlog/done`을 임의로 만들지 말라.
 - 이 하네스 저장소 자체의 작업이면 `CHANGELOG.md`도 갱신하라. 대상 프로젝트가 변경 기록을 관리하지 않으면 `CHANGELOG.md`를 새로 만들거나 갱신을 요구하지 말라.
 
 ## 11. 리뷰 단위로 커밋하고 보고
@@ -172,6 +176,7 @@ description: Start every functionality-affecting code task from a required BL-NN
 - 별도 컨벤션이 없으면 `<type>(bl-NNNN): <한국어 요약>` 형식을 사용하라.
 - `type`은 작업 의도에 맞춰 `feat`, `fix`, `refactor`, `test`, `docs`, `chore` 등에서 선택하라.
 - 요약은 간결한 한국어로 작성하라.
+- 백로그 항목을 완료 보관소로 옮긴 변경은 마지막 커밋에 포함하라. 별도 커밋으로 나누지 말라.
 - 각 커밋을 만들기 전에 staged diff가 해당 의도와 일치하는지 확인하라.
 - 가능한 범위에서 각 커밋 단위의 관련 검증을 수행하라.
 - 사용자가 커밋하지 말라고 했거나 로컬 규칙이 자동 커밋을 금지하면 커밋하지 말고 변경 상태를 보고하라.

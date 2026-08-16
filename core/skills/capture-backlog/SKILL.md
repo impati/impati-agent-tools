@@ -20,7 +20,7 @@ description: Capture a problem, idea, or future work item that should be remembe
 
 ## 2. 기존 항목 확인
 
-`docs/backlog`의 기존 항목을 읽고 같은 문제나 목표가 이미 기록되어 있는지 확인하라.
+`docs/backlog`의 열린 항목과 `docs/backlog/done`의 완료 항목을 함께 읽고 같은 문제나 목표가 이미 기록되어 있는지 확인하라.
 
 - 명백히 같은 항목이면 새 파일을 만들지 말고 기존 항목을 알려라.
 - 일부만 겹쳐 병합 여부가 불명확하면 기존 항목을 갱신할지 별도 항목으로 만들지 사용자에게 물어라.
@@ -30,13 +30,13 @@ description: Capture a problem, idea, or future work item that should be remembe
 
 각 백로그 항목에 `BL-NNNN` 형식의 추적 ID를 부여하라. 이 ID는 백로그 파일, 작업 브랜치, 커밋과 코드 리뷰를 연결하는 기준이다.
 
-- 현재 `docs/backlog`와 Git에서 확인 가능한 전체 이력의 `BL-NNNN` 번호를 조사하라.
+- 현재 `docs/backlog`, `docs/backlog/done`과 Git에서 확인 가능한 전체 이력의 `BL-NNNN` 번호를 조사하라. 완료 항목의 번호도 반드시 채번 대상에 포함하라.
 - 지금까지 사용한 가장 큰 번호의 다음 번호를 네 자리로 부여하라. 첫 항목은 `BL-0001`이다.
 - 삭제된 항목의 번호도 다시 사용하지 말라.
 - 파일을 쓰기 직전에 같은 ID가 생성되지 않았는지 다시 확인하고, 충돌하면 다음 번호를 다시 할당하라.
 - 중앙 번호 발급 시스템이 없으므로 서로 다른 clone에서 동시에 만든 ID는 병합 시 충돌할 수 있다. 충돌을 발견하면 임의로 덮어쓰지 말고 사용자와 새 번호를 확정하라.
 
-파일명은 `docs/backlog/bl-NNNN-kebab-case-title.md` 형식을 사용하라. 제목은 문제나 목표를 짧고 구체적으로 나타내라.
+파일명은 `docs/backlog/bl-NNNN-kebab-case-title.md` 형식을 사용하라. 제목은 문제나 목표를 짧고 구체적으로 나타내라. 새 항목은 항상 열린 항목이므로 `docs/backlog/done`이 아니라 `docs/backlog` 바로 아래에 만들어라.
 
 다음 형식만 기본으로 사용하라.
 
