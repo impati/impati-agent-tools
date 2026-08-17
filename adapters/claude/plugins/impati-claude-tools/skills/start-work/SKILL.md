@@ -66,6 +66,8 @@ description: Start every functionality-affecting code task from a required BL-NN
 - 커밋 컨벤션, 리뷰 단위와 커밋 경계
 - 백로그 ID, feature 브랜치 이름과 기준 브랜치
 
+확정할 규칙 중 코드에서 유도되지 않고 사람이 정해야 하는 비즈니스 규칙이 있으면 정책 결정 문서가 필요한지 판정하라. 필요해 보이면 근거와 함께 `decide-policy`를 제안하고, 사용자가 승인할 때만 진입하라. 자동으로 정책 문서를 만들지 말라.
+
 저장소 조사에서 발견한 제약 때문에 선택지가 제한된다면 그 근거를 설명하라.
 
 ## 5. 상세 인터뷰 진행
