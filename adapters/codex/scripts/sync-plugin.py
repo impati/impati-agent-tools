@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 import sys
 import tempfile
@@ -33,6 +34,58 @@ def build_expected(destination: Path) -> None:
                 raise RuntimeError(f"중복된 스킬 이름입니다: {skill_dir.name}")
             skill_names.add(skill_dir.name)
             shutil.copytree(skill_dir, skills_destination / skill_dir.name)
+
+
+def expected_discovery_links() -> dict[str, str]:
+    """Map each skill name to the relative target its discovery symlink must use."""
+    links: dict[str, str] = {}
+    for source_root in (CORE_SKILLS, ADAPTER_SKILLS):
+        for skill_dir in sorted(path for path in source_root.iterdir() if path.is_dir()):
+            links[skill_dir.name] = os.path.relpath(skill_dir, DISCOVERY_SKILLS)
+    return links
+
+
+def actual_discovery_links() -> dict[str, str]:
+    if not DISCOVERY_SKILLS.is_dir():
+        return {}
+    return {
+        path.name: os.readlink(path) if path.is_symlink() else ""
+        for path in sorted(DISCOVERY_SKILLS.iterdir())
+    }
+
+
+def synchronize_discovery_links(check_only: bool) -> None:
+    """Keep .agents/skills pointing at every skill source, so new skills stay discoverable."""
+    expected = expected_discovery_links()
+    actual = actual_discovery_links()
+    if actual == expected:
+        return
+
+    missing = sorted(expected.keys() - actual.keys())
+    extra = sorted(actual.keys() - expected.keys())
+    wrong = sorted(name for name in expected.keys() & actual.keys() if expected[name] != actual[name])
+    if check_only:
+        details = ", ".join(
+            part
+            for part in (
+                f"누락: {missing}" if missing else "",
+                f"불필요: {extra}" if extra else "",
+                f"잘못된 대상: {wrong}" if wrong else "",
+            )
+            if part
+        )
+        raise RuntimeError(f".agents/skills 탐색 링크가 스킬 원본과 다릅니다. {details}")
+
+    DISCOVERY_SKILLS.mkdir(parents=True, exist_ok=True)
+    for name in extra + wrong:
+        path = DISCOVERY_SKILLS / name
+        if path.is_symlink() or path.is_file():
+            path.unlink()
+        else:
+            shutil.rmtree(path)
+    for name in missing + wrong:
+        os.symlink(expected[name], DISCOVERY_SKILLS / name)
+    print(".agents/skills 탐색 링크를 스킬 원본과 동기화했습니다.")
 
 
 def synchronize(check_only: bool) -> None:
@@ -99,11 +152,14 @@ ADAPTER_SKILLS = REPO_ROOT / "adapters" / "codex" / "skills"
 PLUGIN_ROOT = REPO_ROOT / "adapters" / "codex" / "plugins" / PLUGIN_NAME
 PLUGIN_AGENTS = PLUGIN_ROOT / "AGENTS.md"
 PLUGIN_SKILLS = PLUGIN_ROOT / "skills"
+DISCOVERY_SKILLS = REPO_ROOT / ".agents" / "skills"
 
 
 def main() -> int:
     try:
-        synchronize(parse_args().check)
+        check_only = parse_args().check
+        synchronize_discovery_links(check_only)
+        synchronize(check_only)
         return 0
     except (OSError, RuntimeError) as error:
         print(f"오류: {error}", file=sys.stderr)
