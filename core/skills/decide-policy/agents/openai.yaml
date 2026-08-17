@@ -1,0 +1,4 @@
+interface:
+  display_name: "Decide Policy"
+  short_description: "고유 PD 번호로 비즈니스 규칙 결정을 시점 고정 문서에 기록"
+  default_prompt: "Use $decide-policy to judge whether this needs a policy document, interview me on the rules, and record them as a PD-NNNN decision document."
