@@ -11,10 +11,10 @@
 `core/`는 특정 에이전트에 종속되지 않는 단일 원본입니다.
 
 - `AGENTS.md`: 사용자 의도, 요청 범위와 로컬 프로젝트 규칙을 우선하는 공통 원칙
-- `start-work`: `BL-NNNN` 백로그를 기반으로 인터뷰, feature 브랜치와 리뷰 단위 커밋 관리
+- `start-work`: `BL-NNNN` 백로그를 기반으로 인터뷰, feature 브랜치와 리뷰 대기 상태까지 관리
 - `capture-backlog`: 순차 ID로 문제의 배경과 목표 기록
 - `decide-policy`: 사람이 정해야 하는 비즈니스 규칙을 `PD-NNNN` 결정 문서로 확정
-- `rca-code-review`: 명시적 요청 시 백로그 브랜치를 RCA 다관점으로 리뷰
+- `rca-code-review`: 명시적 요청 시 RCA 다관점 리뷰 후 항목별 반영 결정을 인터뷰하고 완료 게이트 처리
 - `engineering-writeup`: 엔지니어링 작업을 한국어 기술 문서로 정리
 - `publish-engineering-writeup`: 검증된 기술 문서를 블로그 게시물로 변환해 안전한 Draft PR 생성
 
