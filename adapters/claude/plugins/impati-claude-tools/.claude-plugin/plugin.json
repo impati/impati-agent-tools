@@ -1,7 +1,7 @@
 {
   "name": "impati-claude-tools",
   "displayName": "Impati Claude Tools",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "사용자 의도 확인 원칙과 반복 가능한 개발 워크플로를 Claude Code 세션에 제공한다.",
   "author": {
     "name": "impati"
