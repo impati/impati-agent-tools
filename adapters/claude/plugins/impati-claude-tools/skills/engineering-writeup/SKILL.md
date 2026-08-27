@@ -5,93 +5,94 @@ description: Use when the user asks to document, summarize, or write up an engin
 
 # Engineering Writeup
 
-Create an evidence-based Korean technical article that satisfies two purposes at once:
+증거에 기반한 한국어 기술 글을 작성하라. 글은 다음 두 목적을 동시에 만족해야 한다.
 
-1. a public technical article that a reader who does not know the repository can read and follow
-2. a record that helps the author remember the experience long after the work
+1. 이 저장소를 모르는 독자가 읽고 따라올 수 있는 공개 기술 글
+2. 작성자가 그 경험을 오래 기억하기 위한 기록
 
-Do not sacrifice one purpose for the other. The article is not a work diary: do not arrange it in the order the author discovered things, and do not make the reader trace what the author realized and in which order. It is also not an implementation completion report, test plan, PR description, or MR description.
+한 목적을 위해 다른 목적을 버리지 말라. 이 글은 작업 일기가 아니다. 작성자가 발견한 시간순으로 배열하지 말고, 독자가 "작성자가 무엇을 몇 번째로 깨달았는지"를 따라 읽게 만들지 말라. 구현 완료 보고서, 테스트 계획, PR 설명, MR 설명도 아니다.
 
-## Establish the Writing Context
+## 작성 컨텍스트 확정
 
-Before writing, identify from the request and available evidence:
+쓰기 전에 요청과 확보한 증거에서 다음을 파악하라.
 
-- the subject the article should illuminate
-- the most useful learning to preserve
-- the relevant evidence, such as code changes, discussion, logs, experiments, or existing test results
+- 이 글이 밝혀야 할 주제
+- 보존할 가장 유용한 배움
+- 관련 증거 — 코드 변경, 논의, 로그, 실험 또는 기존 테스트 결과
 
-If the user has already made the purpose clear, use that context without asking again. When essential context is absent, state a minimal assumption instead of inventing project details.
+사용자가 이미 목적을 밝혔다면 다시 묻지 말고 그 컨텍스트를 사용하라. 필수 컨텍스트가 없으면 프로젝트 세부사항을 지어내지 말고 최소한의 가정을 명시하라.
 
-## Write for a Defined Reader
+## 정해진 독자를 향해 쓴다
 
-The default reader is a backend developer who does not know this repository. If the user names a different audience, that audience wins.
+기본 독자는 이 저장소를 모르는 백엔드 개발자다. 사용자가 다른 독자를 지정하면 그 지정을 우선하라.
 
-- Open the article with an entry point the reader can walk into: what situation the article is about and why it matters. Do not start from repository-internal circumstances the reader has never seen.
-- Explain in detail only what the article is about. Domain concepts that are not the subject get one or two lines of context before moving on.
-- Do not coin terms. Use commonly accepted English terminology or plainly written Korean. This applies to the title as well: no unexplained coinages or internal names in headings.
-- Connect each project-specific name to the conceptual role it performs, and prefer a progression such as "concept → why it matters here → how this project applied it" over beginning with internal identifiers.
+- 글은 독자가 들어올 수 있는 입구로 시작하라. 어떤 상황에 대한 글이고 왜 읽을 가치가 있는지를 먼저 세우고, 독자가 본 적 없는 저장소 내부 사정으로 시작하지 말라.
+- 글의 주제인 것만 자세히 설명하라. 주제가 아닌 도메인 개념은 한두 줄로 짚고 넘어가라.
+- 조어를 만들지 말라. 통용되는 영어 용어나 풀어 쓴 한국어를 사용하라. 제목도 마찬가지다 — 제목과 절 제목에 설명 없는 조어나 내부 명칭을 쓰지 말라.
+- 프로젝트 고유 명칭은 그것이 수행하는 개념적 역할과 연결하고, 내부 식별자로 시작하는 대신 "개념 → 여기서 왜 중요한가 → 이 프로젝트는 어떻게 적용했는가" 순서의 전개를 우선하라.
+- 코드 스니펫은 추론을 이해하기 쉽게 만들 때만 사용하라.
 
-## Arrange by Logic, Not by Time
+## 시간순이 아니라 논리순으로 배열한다
 
-Use 배경 → 문제 → 해결 과정 → 마무리 as the default flow, and arrange content in logical order rather than the chronological order in which the author worked.
+기본 흐름은 배경 → 문제 → 해결 과정 → 마무리로 하고, 작성자가 작업한 시간순이 아니라 논리순으로 내용을 배열하라.
 
-- State premises as fact statements, not as decision narration. "운영 환경은 인스턴스가 여러 개다" gives the reader the premise directly; "~하기로 했다" wraps it in one extra layer the reader must unwrap.
-- Convert what the author went through into what the reader needs: not "내가 이렇게 헤맸다" but "이 방식은 이래서 안 맞는다."
-- Keep comparisons of meaningful alternatives — they are the grounds of the decision and valuable to the reader. Present a rejected alternative as the reason it does not fit, not as the story of trying it.
-- Do not manufacture alternatives merely to fill a section.
-- Adjust section headings to the actual subject; the default flow fixes the order of reasoning, not the literal titles.
+- 전제는 결정 서술이 아니라 사실 진술로 적어라. "운영 환경은 인스턴스가 여러 개다"는 독자에게 전제를 바로 주지만, "~하기로 했다"는 독자가 한 겹 벗겨야 하는 포장을 씌운다.
+- 작성자가 겪은 것은 독자에게 필요한 것으로 변환하라. "내가 이렇게 헤맸다"가 아니라 "이 방식은 이래서 안 맞는다"로 남겨라.
+- 의미 있는 대안 비교는 유지하라 — 결정의 근거이므로 독자에게도 값이 있다. 기각한 대안은 시도해 본 이야기가 아니라 맞지 않는 이유로 제시하라.
+- 절을 채우기 위해 대안을 지어내지 말라.
+- 절 제목은 실제 주제에 맞게 조정하라. 기본 흐름이 고정하는 것은 추론의 순서이지 문자 그대로의 제목이 아니다.
 
-## Keep Side Topics Out of the Structure
+## 곁가지를 구조로 올리지 않는다
 
-A point that does not contribute to the subject of the article must not become its own section. If it is worth keeping, cover it briefly in the closing part of the article. Otherwise omit it.
+글의 주제에 기여하지 않는 내용은 독립 절로 만들지 말라. 남길 값이 있으면 글의 마무리에서 짧게 다루고, 없으면 생략하라.
 
-## Handle Tests and Verification as Evidence
+## 테스트와 검증은 증거로 다룬다
 
-Mention tests, experiments, observations, or verification results only when they were actually performed and help explain why the conclusion is credible or what was learned.
+테스트, 실험, 관찰 또는 검증 결과는 실제로 수행했고 결론의 신뢰 근거나 배움을 설명하는 데 도움이 될 때만 언급하라.
 
-- Do not create a new test or verification method for the sake of the writeup.
-- Do not add a `테스트와 검증` section by default.
-- Do not turn the article into a checklist of work that should be performed later.
-- Omit routine compile, build, lint, and test success when it only proves that work completed normally.
-- Include a verification result only when it changes the reader's understanding of the cause, decision, solution, limitation, or learning.
-- If an unverified point materially limits the conclusion, state that boundary plainly.
+- 글을 위해 새 테스트나 검증 방법을 만들지 말라.
+- `테스트와 검증` 절을 기본으로 추가하지 말라.
+- 글을 나중에 수행할 작업 체크리스트로 만들지 말라.
+- 작업이 정상 완료되었음을 증명할 뿐인 컴파일, 빌드, 린트, 테스트 성공은 생략하라.
+- 검증 결과는 원인, 결정, 해결, 한계 또는 배움에 대한 독자의 이해를 바꿀 때만 포함하라.
+- 검증하지 못한 지점이 결론을 실질적으로 제한하면 그 경계를 분명히 적어라.
 
-## Separate Research Evidence from Reader-Facing Content
+## 조사 증거와 독자용 내용을 분리한다
 
-Treat repository inspection, diffs, logs, build output, and test results as source material. Do not copy each collected fact into the article merely because it was checked.
+저장소 조사, diff, 로그, 빌드 출력과 테스트 결과는 원재료로 다뤄라. 확인했다는 이유만으로 수집한 사실을 글에 옮기지 말라.
 
-Before including a detail, ask whether removing it would weaken the explanation or erase an important lesson. Omit it when the answer is no. Keep delivery evidence, command transcripts, changed-file inventories, and routine validation summaries outside the article unless they are themselves part of the subject being explained.
+세부사항을 포함하기 전에 그것을 빼면 설명이 약해지거나 중요한 교훈이 사라지는지 물어라. 아니라면 생략하라. 전달 증거, 명령 실행 기록, 변경 파일 목록과 일상적 검증 요약은 그것 자체가 설명할 주제의 일부가 아닌 한 글 밖에 둬라.
 
-Write the explanation for the reader; do not describe the writing strategy. Explain a concept directly instead of announcing that concepts will be explained first. Do not mention the prompt, skill, requested structure, evidence-gathering process, or assumptions about making the article accessible unless one of them is genuinely part of the engineering subject.
+설명은 독자를 위해 쓰고 작성 전략을 서술하지 말라. 개념을 먼저 설명하겠다고 예고하는 대신 개념을 바로 설명하라. 프롬프트, 스킬, 요청받은 구조, 증거 수집 과정 또는 글의 접근성에 대한 가정은 그것이 진짜 엔지니어링 주제의 일부가 아닌 한 언급하지 말라.
 
-## Keep Publication Work Separate
+## 퍼블리시 작업은 분리한다
 
-Do not create branches, commits, PRs, MRs, reviews, or publication workflows as part of this skill. Use a separate skill when the user asks to publish or deliver the writeup through one of those workflows.
+이 스킬의 일부로 브랜치, 커밋, PR, MR, 리뷰 또는 퍼블리시 워크플로를 만들지 말라. 사용자가 그런 워크플로로 글의 게시나 전달을 요청하면 별도 스킬을 사용하라.
 
-## Evidence Rules
+## 증거 규칙
 
-When the user refers to repository work, inspect the relevant changed files, git diff, history, or other supplied artifacts as needed. Do not invent implementation details, decisions, outcomes, or verification results.
+사용자가 저장소 작업을 언급하면 필요한 범위에서 관련 변경 파일, git diff, 이력 또는 제공된 산출물을 조사하라. 구현 세부사항, 결정, 결과 또는 검증 결과를 지어내지 말라.
 
-If the user wants the article saved as a file, create it in the requested location. If no location is requested, return the article in the response.
+사용자가 글을 파일로 저장하길 원하면 요청한 위치에 생성하라. 위치 요청이 없으면 응답으로 글을 반환하라.
 
-## Perform a Final Editorial Pass
+## 최종 편집 점검을 수행한다
 
-Before delivering the article, reread it as the defined reader — someone who has never seen this repository — and check:
+글을 전달하기 전에 정해진 독자 — 이 저장소를 본 적 없는 사람 — 로서 다시 읽고 다음을 점검하라.
 
-- the opening gives that reader an entry point instead of starting from repository-internal circumstances
-- content follows the logical flow, not the author's working order; no section exists only because the author passed through it
-- premises appear as fact statements rather than decision narration
-- the title and headings contain no coined terms or unexplained internal names
-- side topics have not been promoted to their own sections
-- sentences that explain how the article was written, and completion-report details that do not advance the subject, are removed
-- the result reads as a standalone technical article without requiring knowledge of the task or authoring process, while still preserving what the author wants to remember
+- 도입이 저장소 내부 사정 대신 그 독자가 들어올 입구를 제공하는가
+- 내용이 작성자의 작업 순서가 아니라 논리 흐름을 따르는가. 작성자가 거쳐 갔다는 이유만으로 존재하는 절이 없는가
+- 전제가 결정 서술이 아니라 사실 진술로 나타나는가
+- 제목과 절 제목에 조어나 설명 없는 내부 명칭이 없는가
+- 곁가지가 독립 절로 승격되지 않았는가
+- 글이 어떻게 작성되었는지 설명하는 문장과, 주제 전개에 기여하지 않는 완료 보고성 세부사항이 제거되었는가
+- 작업이나 작성 과정을 몰라도 독립적으로 읽히는 기술 글이면서, 작성자가 기억하려는 것을 여전히 보존하는가
 
-## Style Rules
+## 스타일 규칙
 
-- Write in Korean.
-- Keep the tone practical, explanatory, and engineering-focused.
-- Make the reasoning and learning more prominent than a list of changed files.
-- Prefer clear paragraphs and short lists where they improve comprehension.
-- Avoid marketing language and unexplained technology lists.
-- Use concrete project details after establishing the concepts they represent.
-- Do not enforce a target length; let the subject determine it.
+- 한국어로 작성하라.
+- 실용적이고 설명 중심의 엔지니어링 톤을 유지하라.
+- 변경 파일 나열보다 추론과 배움이 두드러지게 하라.
+- 이해를 돕는 곳에서는 명확한 문단과 짧은 목록을 우선하라.
+- 마케팅 언어와 설명 없는 기술 나열을 피하라.
+- 프로젝트 세부사항은 그것이 대표하는 개념을 먼저 세운 뒤 사용하라.
+- 글 길이를 강제하지 말라. 주제가 길이를 정하게 하라.
