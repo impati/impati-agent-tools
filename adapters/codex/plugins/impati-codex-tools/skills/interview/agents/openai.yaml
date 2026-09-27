@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interview"
+  short_description: "의도와 결정의 근거를 인터뷰하고 검증 가능한 합의로 정리"
+  default_prompt: "Use $interview to clarify my intent, scope, assumptions, and acceptance criteria, then summarize our decisions without starting implementation."

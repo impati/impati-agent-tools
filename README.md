@@ -11,7 +11,8 @@
 `core/`는 특정 에이전트에 종속되지 않는 단일 원본입니다.
 
 - `AGENTS.md`: 사용자 의도, 요청 범위와 로컬 프로젝트 규칙을 우선하는 공통 원칙
-- `start-work`: `BL-NNNN` 백로그를 기반으로 인터뷰, feature 브랜치와 리뷰 대기 상태까지 관리
+- `interview`: 의도·범위·결정의 근거를 인터뷰하고 검증 가능한 합의로 정리
+- `start-work`: `BL-NNNN` 백로그를 기반으로 필수 `interview`, 실행 계획 승인, feature 브랜치와 리뷰 대기 상태까지 관리
 - `capture-backlog`: 순차 ID로 문제의 배경과 목표 기록
 - `decide-policy`: 사람이 정해야 하는 비즈니스 규칙을 `PD-NNNN` 결정 문서로 확정
 - `rca-code-review`: 명시적 요청 시 RCA 다관점 리뷰 후 항목별 반영 결정을 인터뷰하고 완료 게이트 처리
@@ -19,6 +20,10 @@
 - `publish-engineering-writeup`: 검증된 기술 문서를 블로그 게시물로 변환해 안전한 Draft PR 생성
 
 `.agents/skills/`는 에이전트가 이 저장소의 스킬을 발견하기 위한 심볼릭 링크 모음입니다. 공통 스킬의 실제 원본은 `core/skills/`, Codex 전용 스킬의 원본은 `adapters/codex/skills/`에 있으므로 `.agents/skills/`의 링크를 직접 수정하지 않습니다. 이 링크는 `adapters/codex/scripts/sync-plugin.py`가 스킬 원본에 맞춰 생성·정리하고 `--check`로 검증합니다.
+
+`인터뷰해줘` 또는 `$interview`는 합의 내용을 채팅으로 정리하고 끝냅니다. 백로그 ID 없이도 사용할 수 있고, 구현이나 브랜치 생성을 자동 시작하지 않습니다. `작업 시작` 또는 `$start-work`는 백로그 연결 후 `interview`와 작업 시작용 시스템 검토를 반드시 거칩니다. 인터뷰 결과에 실행 계획을 합쳐 한 번만 시작 승인을 받고 구현·검증·커밋으로 이어갑니다.
+
+인터뷰는 확인한 사실·추정·사용자 결정을 구분하고, 선행 결정이 해결된 주제부터 한 번에 하나씩 다룹니다. 중요한 답변은 구체 사례와 반례로 가정·경계를 확인하며, 앞선 결정이 바뀌면 영향을 받는 범위와 검증도 다시 점검합니다. 작은 변경은 질문과 심화 범위만 줄이고 필수 검토를 생략하지 않습니다. 기존 합의가 유효하면 같은 질문과 승인을 반복하지 않습니다. `interview`는 `start-work`의 필수 의존 스킬이므로 함께 배포합니다.
 
 루트의 `AGENTS.md`와 `CLAUDE.md`는 모두 `core/AGENTS.md`를 가리키는 심볼릭 링크입니다. 각 에이전트가 이 저장소에서 작업할 때 플러그인 설치 여부와 무관하게 공통 원칙을 읽도록 합니다.
 
@@ -195,6 +200,7 @@ claude plugin install impati-claude-tools@personal
 │       ├── capture-backlog/
 │       ├── decide-policy/
 │       ├── engineering-writeup/
+│       ├── interview/
 │       ├── publish-engineering-writeup/
 │       ├── rca-code-review/
 │       └── start-work/
