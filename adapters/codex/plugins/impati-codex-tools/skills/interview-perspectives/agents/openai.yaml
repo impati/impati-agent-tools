@@ -1,0 +1,6 @@
+interface:
+  display_name: "Interview Perspectives"
+  short_description: "명시 요청 시 관점별 근거와 미결정 사항을 확인하는 다관점 인터뷰"
+  default_prompt: "Use $interview-perspectives to interview me across relevant perspectives, track evidence and unresolved decisions, and summarize readiness without starting implementation."
+policy:
+  allow_implicit_invocation: false
