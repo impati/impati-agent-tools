@@ -15,7 +15,8 @@
 - `start-work`: `BL-NNNN` 백로그를 기반으로 필수 `interview`, 실행 계획 승인, feature 브랜치와 리뷰 대기 상태까지 관리
 - `capture-backlog`: 순차 ID로 문제의 배경과 목표 기록
 - `decide-policy`: 사람이 정해야 하는 비즈니스 규칙을 `PD-NNNN` 결정 문서로 확정
-- `rca-code-review`: 명시적 요청 시 RCA 다관점 리뷰 후 항목별 반영 결정을 인터뷰하고 완료 게이트 처리
+- `code-review`: 지정된 변경을 RCA 다관점으로 읽기 전용 검수하고 배경·상황·근거·영향 보고
+- `finish-work`: 리뷰 결과의 설명·항목별 인터뷰와 최종 승인 후 수정·최종 검수·커밋·백로그 완료 처리
 - `engineering-writeup`: 엔지니어링 작업을 한국어 기술 문서로 정리
 - `publish-engineering-writeup`: 검증된 기술 문서를 블로그 게시물로 변환해 안전한 Draft PR 생성
 
@@ -24,6 +25,10 @@
 `인터뷰해줘` 또는 `$interview`는 합의 내용을 채팅으로 정리하고 끝냅니다. 백로그 ID 없이도 사용할 수 있고, 구현이나 브랜치 생성을 자동 시작하지 않습니다. `작업 시작` 또는 `$start-work`는 백로그 연결 후 `interview`와 작업 시작용 시스템 검토를 반드시 거칩니다. 인터뷰 결과에 실행 계획을 합쳐 한 번만 시작 승인을 받고 구현·검증·커밋으로 이어갑니다.
 
 인터뷰는 확인한 사실·추정·사용자 결정을 구분하고, 선행 결정이 해결된 주제부터 한 번에 하나씩 다룹니다. 중요한 답변은 구체 사례와 반례로 가정·경계를 확인하며, 앞선 결정이 바뀌면 영향을 받는 범위와 검증도 다시 점검합니다. 작은 변경은 질문과 심화 범위만 줄이고 필수 검토를 생략하지 않습니다. 기존 합의가 유효하면 같은 질문과 승인을 반복하지 않습니다. `interview`는 `start-work`의 필수 의존 스킬이므로 함께 배포합니다.
+
+`코드 리뷰해줘` 또는 `$code-review`는 백로그 유무와 관계없이 지정한 커밋이나 명시적으로 포함한 미커밋 변경을 검토하고 결과 보고에서 끝냅니다. `작업 마무리해줘` 또는 `$finish-work`는 유효한 리뷰를 확보한 뒤 전체 발견 사항을 공유하고 항목마다 배경·발생 상황·영향을 설명하여 반영·보류·후속 백로그·기각을 합의합니다. 최종 계획 승인 후에만 수정하고, 테스트와 수정 diff·영향 경로를 검수한 뒤 승인된 완료 이동·커밋을 수행합니다. 실제 위험 수용과 근거상 오탐은 구분하며, 처분만으로 미충족 완료 기준을 없애지 않습니다.
+
+4.0.0부터 기존 `$rca-code-review`는 제거하고 `$code-review`와 `$finish-work`로 대체합니다. RCA 분석 기준은 `code-review`에 유지합니다. 리뷰만 통과하면 백로그는 열린 위치에 남으며, `finish-work`는 기존 리뷰의 SHA·변경 내용·계약이 유효한지 확인해 재사용합니다. `code-review`와 `interview`는 `finish-work`와 함께 배포합니다. 문서·스킬 작업은 불필요한 백로그를 만들지 않고 마무리할 수 있습니다.
 
 루트의 `AGENTS.md`와 `CLAUDE.md`는 모두 `core/AGENTS.md`를 가리키는 심볼릭 링크입니다. 각 에이전트가 이 저장소에서 작업할 때 플러그인 설치 여부와 무관하게 공통 원칙을 읽도록 합니다.
 
@@ -198,11 +203,12 @@ claude plugin install impati-claude-tools@personal
 │   ├── AGENTS.md
 │   └── skills/
 │       ├── capture-backlog/
+│       ├── code-review/
 │       ├── decide-policy/
 │       ├── engineering-writeup/
+│       ├── finish-work/
 │       ├── interview/
 │       ├── publish-engineering-writeup/
-│       ├── rca-code-review/
 │       └── start-work/
 ├── adapters/
 │   ├── codex/

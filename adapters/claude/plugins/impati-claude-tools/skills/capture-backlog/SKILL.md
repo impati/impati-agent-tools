@@ -61,6 +61,8 @@ description: Capture a problem, idea, or future work item that should be remembe
 
 개별 백로그 항목은 `CHANGELOG.md`나 ADR에 중복 기록하지 말라.
 
+`finish-work`의 승인된 후속 항목을 생성하는 경우에는 ID·파일·목표를 반환하고 스테이징과 커밋을 그 스킬의 최종 검수 이후로 미뤄라. 아래 커밋 절차는 단독 호출과 그 외 흐름에 적용한다.
+
 - `git status`와 diff를 확인하고 새 백로그 항목만 스테이징하라.
 - 기존 사용자 변경을 포함하지 말라.
 - 로컬 커밋 규칙을 우선하고, 규칙이 없으면 `docs(bl-NNNN): <한국어 요약>` 형식을 사용하라.

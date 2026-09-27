@@ -1,4 +1,0 @@
-interface:
-  display_name: "RCA Code Review"
-  short_description: "RCA 리뷰 후 항목별 반영 결정을 인터뷰"
-  default_prompt: "Use $rca-code-review to review this backlog branch with RCA-style causal analysis, interview me about each finding, and apply only the final plan I approve."

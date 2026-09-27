@@ -1,0 +1,4 @@
+interface:
+  display_name: "Finish Work"
+  short_description: "리뷰 결과를 설명·인터뷰하고 승인된 수정과 작업 완료 처리"
+  default_prompt: "Use $finish-work to review this work, explain and interview me about each finding, then apply the approved plan, verify the final changes, and complete the applicable backlog and commits."

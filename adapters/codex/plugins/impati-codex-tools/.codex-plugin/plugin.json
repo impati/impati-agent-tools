@@ -1,6 +1,6 @@
 {
   "name": "impati-codex-tools",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "사용자 의도 확인 원칙과 반복 가능한 개발 워크플로를 Codex 세션에 제공한다.",
   "author": {
     "name": "impati"
@@ -11,7 +11,7 @@
   "interface": {
     "displayName": "Impati Codex Tools",
     "shortDescription": "의도 확인부터 백로그·작업·리뷰까지 연결",
-    "longDescription": "공통 작업 원칙을 세션에 주입하고 백로그 기록, 작업 시작 인터뷰, RCA 코드 리뷰와 기술 문서 작성 스킬을 제공한다.",
+    "longDescription": "공통 작업 원칙을 세션에 주입하고 인터뷰, 백로그 기록, 작업 시작, 읽기 전용 코드 리뷰, 작업 마무리와 기술 문서 작성 스킬을 제공한다.",
     "developerName": "impati",
     "category": "Productivity",
     "capabilities": ["Write"],

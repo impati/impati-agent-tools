@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Review"
+  short_description: "변경을 읽기 전용으로 검수하고 배경·근거·위험을 설명"
+  default_prompt: "Use $code-review to inspect this change without modifying it and explain each finding's background, trigger, evidence, impact, and verification gaps."
